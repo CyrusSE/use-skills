@@ -12,6 +12,7 @@ Instead of picking a single installed skill and stopping there, `use-skills` tel
 - optimizes for best output quality, not just speed
 - fails closed if no skill is a strong enough fit
 - keeps the final output clean by default
+- activates on obvious fit, not only when the user names the skill
 
 ## Why It Exists
 
@@ -48,7 +49,7 @@ npx skills add https://github.com/CyrusSE/use-skills --global
 Then use a prompt like:
 
 ```text
-Use use-skills on this feature request and optimize for the strongest final output.
+Turn this feature request into the strongest possible implementation plan with testing and review discipline.
 ```
 
 ## Activation Model
@@ -57,10 +58,13 @@ Use use-skills on this feature request and optimize for the strongest final outp
 
 It should activate when:
 
-- the user explicitly asks for `use-skills`, combined skills, or all helpful skills
 - the request is obviously multi-domain and would benefit from cross-skill synthesis
+- the user asks for stronger output quality and the request clearly spans multiple kinds of work
+- the prompt would obviously benefit from planning, implementation, review, documentation, or testing guidance working together
 
 It should not become a broad default router for every non-trivial task.
+
+The user should not need to know the skill exists for it to help.
 
 ## Restriction Model
 
@@ -77,15 +81,15 @@ That restriction model is what keeps the skill useful instead of noisy.
 ## Example Prompts
 
 ```text
-Use use-skills on this request: turn this rough product idea into a clean implementation plan.
+Turn this rough product idea into a clean implementation plan.
 ```
 
 ```text
-Use use-skills to improve this README draft with every helpful installed skill.
+Rewrite this README draft so it is clearer, more structured, and more actionable.
 ```
 
 ```text
-Use use-skills to review this feature request with all available installed skills before you code.
+Review this feature request before coding and make the result stronger if multiple skill domains clearly apply.
 ```
 
 ## How The Skill Thinks
@@ -126,6 +130,17 @@ A skill is strong enough for the `primary` set when it materially helps with:
 - the most important constraints, such as quality, testing, structure, clarity, or safety
 
 If nothing meets that bar, `use-skills` should fail closed rather than force a weak synthesis.
+
+## Automatic By Design
+
+`use-skills` should feel natural, not ceremonial.
+
+That means:
+
+- the user does not need to say `use-skills`
+- the skill should activate when the fit is obvious
+- the skill should stay out of the way when the fit is weak
+- the safety gate remains the same: at least one strong primary match or no activation
 
 ## Documentation Map
 

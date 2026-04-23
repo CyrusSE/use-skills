@@ -29,11 +29,13 @@ The skill works in four layers:
 
 Activate `use-skills` when:
 
-- the user explicitly asks for `use-skills`
-- the user asks to combine skills or use all helpful skills
 - the request is obviously multi-domain and would benefit from cross-skill synthesis
+- the prompt clearly benefits from several kinds of guidance working together
+- stronger output quality depends on combining more than one relevant skill domain
 
 Do not activate it as a broad default for every prompt.
+
+The user does not need to mention the skill by name.
 
 ## Matching Rules
 
@@ -112,7 +114,7 @@ Avoid these failure modes:
 
 These prompts usually work well:
 
-- `Use use-skills on this request and optimize for the strongest final output.`
-- `Use use-skills if this prompt is an obvious multi-domain fit.`
-- `Scan all visible skills, but keep weak matches support-only.`
+- `Turn this rough feature request into a clean implementation plan with testing and review discipline.`
+- `Rewrite this README so it is clearer, more structured, and more actionable.`
+- `Review this change and give me the strongest findings first.`
 - `Fail closed if there is no strong primary skill set.`

@@ -5,7 +5,7 @@ description: Scans all visible installed skills, promotes only the strongest mat
 
 # Use Skills
 
-Use this skill when the user wants the strongest possible result and it would help to combine guidance from more than one installed skill instead of relying on a single obvious match.
+Use this skill when the request is an obvious multi-domain fit and it would help to combine guidance from more than one installed skill instead of relying on a single obvious match.
 
 ## Core Idea
 
@@ -25,11 +25,13 @@ The objective is breadth of review with disciplined synthesis, not blind coverag
 
 Activate when the user:
 
-- explicitly asks to use `use-skills`, use all skills, combine skills, or improve the result with every available skill
 - asks for the best possible output and the task is obviously multi-domain, such as planning plus coding, review plus testing, or documentation plus structure
 - wants a stronger answer than simple one-skill routing would provide
+- presents a request where cross-skill synthesis is clearly useful even without naming this skill
 
-Do not activate as a broad default for every non-trivial prompt.
+The user does not need to name `use-skills` for it to activate.
+
+Do not activate as a broad default for every non-trivial prompt. Activate only when the fit is obvious and strong enough to justify broad skill review.
 
 ## Hard Restrictions
 
@@ -39,6 +41,7 @@ Do not activate as a broad default for every non-trivial prompt.
 - Allow weaker matches to contribute only as support.
 - Keep the final output invisible by default: do not append a skill trace unless the user asks for one.
 - Fail closed when no skill clears the strong-match threshold.
+- Do not require an explicit invocation phrase from the user.
 
 ## Required Workflow
 
@@ -133,7 +136,7 @@ If no skill earns a strong enough match, fail closed and do not force synthesis.
 
 ## Example Triggers
 
-- `Use all available skills to improve this feature spec before implementation.`
-- `Run this request through every helpful installed skill and give me the strongest final answer.`
-- `I do not want one router pick. I want the combined benefit of the skills I already installed.`
-- `This request spans planning, implementation, and review. Use use-skills if that will improve the result.`
+- `Turn this rough feature spec into a clean implementation plan with strong testing and review discipline.`
+- `Rewrite this README so it is clearer, more structured, and better documented.`
+- `This request spans planning, implementation, and review. Improve the result if cross-skill synthesis is clearly useful.`
+- `Review this change and give me the strongest findings first, but stay precise and well structured.`
