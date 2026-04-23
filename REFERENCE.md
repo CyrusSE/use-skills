@@ -29,13 +29,14 @@ The skill works in four layers:
 
 Activate `use-skills` when:
 
+- the user explicitly asks for `$use-skills`
 - the request is obviously multi-domain and would benefit from cross-skill synthesis
 - the prompt clearly benefits from several kinds of guidance working together
 - stronger output quality depends on combining more than one relevant skill domain
 
 Do not activate it as a broad default for every prompt.
 
-The user does not need to mention the skill by name.
+The user does not need to mention the skill by name, but explicit invocation must also work.
 
 ## Matching Rules
 
@@ -83,13 +84,16 @@ That means:
 
 ## Default Output Behavior
 
-The default output stays clean and invisible.
+The default output starts with a short, visible working-set block when the skill activates.
 
 That means:
 
-- return the improved answer, plan, patch, or recommendation
-- do not append a skill trace unless the user asks for one
+- begin with:
+  - `Using: use-skills, <selected skills>`
+  - `For: <purposes>`
+- return the improved answer, plan, patch, or recommendation immediately after
 - keep the result centered on the request, not on the routing process
+- do not show the block if the skill fails closed
 
 ## Conflict Resolution
 
@@ -108,12 +112,13 @@ Avoid these failure modes:
 - allowing support skills to dominate the answer
 - reading loosely relevant skills too deeply
 - forcing “something” from every visible skill
-- exposing noisy internal reasoning when the user only wants the result
+- exposing a long routing trace instead of a short working-set declaration
 
 ## Prompting Tips
 
 These prompts usually work well:
 
+- `$use-skills`
 - `Turn this rough feature request into a clean implementation plan with testing and review discipline.`
 - `Rewrite this README so it is clearer, more structured, and more actionable.`
 - `Review this change and give me the strongest findings first.`

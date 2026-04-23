@@ -7,6 +7,14 @@ These examples are written to reinforce the intended behavior:
 - support-only use of weaker matches
 - fail-closed behavior when nothing is strong enough
 - no requirement for the user to name the skill explicitly
+- explicit `$use-skills` invocation also works
+- when activated, the skill announces the working set first
+
+## Explicit Invocation
+
+```text
+$use-skills
+```
 
 ## Planning
 

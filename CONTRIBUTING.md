@@ -11,6 +11,7 @@
 - When you change the behavior, update the README and examples in the same pull request.
 - Keep `README.md`, `REFERENCE.md`, and `SKILL.md` aligned. The public docs should never describe a different model from the runtime instructions.
 - Preserve the automatic activation model: obvious fit should be enough, explicit naming should not be required.
+- Preserve the upfront announcement model: when activated, the skill should declare the selected working set briefly before the main answer.
 - Preserve the gating model: small primary set, support-only weak matches, fail closed when no strong fit exists.
 
 ## Good Contributions

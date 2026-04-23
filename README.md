@@ -11,8 +11,8 @@ Instead of picking a single installed skill and stopping there, `use-skills` tel
 - allows weaker matches to help only as `support`
 - optimizes for best output quality, not just speed
 - fails closed if no skill is a strong enough fit
-- keeps the final output clean by default
-- activates on obvious fit, not only when the user names the skill
+- announces the selected skill set at the start in a short bullet block
+- activates on explicit mention or obvious fit
 
 ## Why It Exists
 
@@ -58,13 +58,14 @@ Turn this feature request into the strongest possible implementation plan with t
 
 It should activate when:
 
+- the user explicitly asks for `$use-skills`
 - the request is obviously multi-domain and would benefit from cross-skill synthesis
 - the user asks for stronger output quality and the request clearly spans multiple kinds of work
 - the prompt would obviously benefit from planning, implementation, review, documentation, or testing guidance working together
 
 It should not become a broad default router for every non-trivial task.
 
-The user should not need to know the skill exists for it to help.
+The user should not need to know the skill exists for it to help, but explicit invocation should also work.
 
 ## Restriction Model
 
@@ -73,10 +74,24 @@ This skill is intentionally gated:
 - optimize for best output quality over speed
 - keep the `primary` set small, usually `1` to `3` skills
 - allow weak matches to help only as `support`
-- keep the final output invisible by default
+- show a short upfront bullet block when the skill activates
 - fail closed if nothing is a strong match
 
 That restriction model is what keeps the skill useful instead of noisy.
+
+## Upfront Announcement
+
+When `use-skills` activates, it should announce the selected working set before the main answer:
+
+- `Using: use-skills, <skill 1>, <skill 2>`
+- `For: <purpose 1>, <purpose 2>`
+
+This block should be:
+
+- short
+- honest
+- limited to the skills that materially shape the answer
+- shown only when the skill actually activates
 
 ## Example Prompts
 
@@ -90,6 +105,10 @@ Rewrite this README draft so it is clearer, more structured, and more actionable
 
 ```text
 Review this feature request before coding and make the result stronger if multiple skill domains clearly apply.
+```
+
+```text
+$use-skills
 ```
 
 ## How The Skill Thinks
@@ -138,6 +157,7 @@ If nothing meets that bar, `use-skills` should fail closed rather than force a w
 That means:
 
 - the user does not need to say `use-skills`
+- but explicitly saying `$use-skills` should always work
 - the skill should activate when the fit is obvious
 - the skill should stay out of the way when the fit is weak
 - the safety gate remains the same: at least one strong primary match or no activation
