@@ -4,6 +4,15 @@
 
 Instead of picking a single installed skill and stopping there, `use-skills` tells the agent to inspect the full visible skill catalog, review every skill against the current request, and synthesize the useful guidance into one stronger result.
 
+## At A Glance
+
+- scans all visible skills before deciding
+- keeps a small `primary` set of strong matches
+- allows weaker matches to help only as `support`
+- optimizes for best output quality, not just speed
+- fails closed if no skill is a strong enough fit
+- keeps the final output clean by default
+
 ## Why It Exists
 
 Single-skill routing is fast, but it often misses additive improvements.
@@ -22,18 +31,48 @@ One request can benefit from:
 When activated, the skill tells the agent to:
 
 1. inspect all visible installed skills
-2. review every skill against the current prompt
-3. classify each skill as `apply`, `support`, or `skip`
-4. read only the helpful skills deeply enough to improve the work
-5. return one coherent output instead of a pile of disconnected advice
+2. score every skill against the current prompt
+3. promote only the strongest matches into a small `primary` set
+4. let weaker but useful matches contribute as `support` only
+5. fail closed if no skill is strong enough
+6. return one coherent output instead of a pile of disconnected advice
 
-## Install
+## Quick Start
 
 Install from GitHub:
 
 ```bash
 npx skills add https://github.com/CyrusSE/use-skills --global
 ```
+
+Then use a prompt like:
+
+```text
+Use use-skills on this feature request and optimize for the strongest final output.
+```
+
+## Activation Model
+
+`use-skills` is not meant to run on every prompt.
+
+It should activate when:
+
+- the user explicitly asks for `use-skills`, combined skills, or all helpful skills
+- the request is obviously multi-domain and would benefit from cross-skill synthesis
+
+It should not become a broad default router for every non-trivial task.
+
+## Restriction Model
+
+This skill is intentionally gated:
+
+- optimize for best output quality over speed
+- keep the `primary` set small, usually `1` to `3` skills
+- allow weak matches to help only as `support`
+- keep the final output invisible by default
+- fail closed if nothing is a strong match
+
+That restriction model is what keeps the skill useful instead of noisy.
 
 ## Example Prompts
 
@@ -53,7 +92,7 @@ Use use-skills to review this feature request with all available installed skill
 
 `use-skills` does not blindly paste every skill into the answer.
 
-It reviews all visible skills, then merges only the guidance that actually improves the current request. That keeps the output stronger without turning it into noise.
+It reviews all visible skills, then merges only the guidance that actually improves the current request. Strong matches drive the result. Weaker matches can refine it, but they do not take ownership.
 
 Conflict resolution order:
 
@@ -68,18 +107,39 @@ Conflict resolution order:
 - combining coding, testing, review, and documentation guidance in one pass
 - improving deliverables when multiple installed skills are clearly relevant
 - getting a more disciplined answer than a single-skill pick would give
+- protecting quality by refusing to force synthesis when no strong skill fit exists
 
 ## Poor Use Cases
 
 - forcing irrelevant skills into a narrow task
 - replacing direct execution with endless analysis
 - loading huge skill libraries when one targeted read is enough
+- running it as a universal default on every non-trivial prompt
+
+## What Counts As A Strong Match
+
+A skill is strong enough for the `primary` set when it materially helps with:
+
+- the domain of the task
+- the type of work being requested
+- the exact deliverable the user wants
+- the most important constraints, such as quality, testing, structure, clarity, or safety
+
+If nothing meets that bar, `use-skills` should fail closed rather than force a weak synthesis.
+
+## Documentation Map
+
+- [SKILL.md](./SKILL.md): the runtime instructions
+- [REFERENCE.md](./REFERENCE.md): the decision model, gating rules, and anti-patterns
+- [examples/prompts.md](./examples/prompts.md): ready-to-use prompts
+- [CONTRIBUTING.md](./CONTRIBUTING.md): contribution rules
 
 ## Repository Structure
 
 ```text
 use-skills/
 ├── SKILL.md
+├── REFERENCE.md
 ├── README.md
 ├── CONTRIBUTING.md
 ├── LICENSE
