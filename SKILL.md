@@ -1,6 +1,6 @@
 ---
 name: use-skills
-description: Activates on explicit mention or obvious multi-domain fit, selects a small primary skill set, announces it up front in a short bullet block, and fails closed when no strong fit exists.
+description: Combines the most relevant installed skills for complex requests, shows the selected skill set up front, and stays inactive when there is no strong fit.
 ---
 
 # Use Skills
