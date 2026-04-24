@@ -1,6 +1,6 @@
 ---
 name: use-skills
-description: Combines the most relevant installed skills for complex requests, shows the selected skill set up front, and stays inactive when there is no strong fit.
+description: Recommends the right installed skills for complex requests, chooses a useful restriction level, and shows the selected skill set before working.
 ---
 
 # Use Skills
@@ -13,11 +13,12 @@ Do not stop at the first matching skill.
 
 Treat the installed skill catalog as a review surface:
 
-1. Inspect all visible installed skills.
-2. Compare the current user request against every skill.
-3. Promote only the strongest matches into a small primary set.
-4. Allow weaker but still useful matches to contribute as support only.
-5. Synthesize the useful guidance into one coherent output.
+1. Analyze the current session, prompt, expected output, and available project context.
+2. Inspect all visible installed skills.
+3. Compare the current request against every skill.
+4. Choose one of three skill-use modes.
+5. Promote the right skills for that mode.
+6. Synthesize the useful guidance into one coherent output.
 
 The objective is breadth of review with disciplined synthesis, not blind coverage.
 
@@ -41,14 +42,31 @@ Do not activate as a broad default for every non-trivial prompt. Activate only w
 - Keep the primary set small: prefer `1` to `3` primary skills.
 - Allow weaker matches to contribute only as support.
 - When the skill activates, announce the selected working set before the main answer.
-- Keep that announcement short: one `Using:` bullet and one `For:` bullet.
+- Keep that announcement short: one `Mode:` bullet, one `Using:` bullet, and one `For:` bullet.
 - Fail closed when no skill clears the strong-match threshold.
 - Do not require an explicit invocation phrase from the user.
 - Do not announce anything if the skill fails closed.
 
 ## Required Workflow
 
-### Step 1: Inventory The Skill Catalog
+### Step 1: Analyze The Current Session
+
+Before selecting skills, inspect the current session context.
+
+Consider:
+
+- the current user prompt
+- recent user preferences and corrections
+- the last accepted mode and working set, if this skill already ran in the session
+- previous assistant output issues or quality gaps
+- current repo, task, and file context
+- whether the task needs planning, coding, review, docs, testing, design, research, or safety guidance
+- whether the user asked for more or less restriction
+- whether the current prompt, expected output, or recommendation has materially changed
+
+Use this analysis to recommend the right skill-use mode and working set.
+
+### Step 2: Inventory The Skill Catalog
 
 List the installed skills visible in the current environment.
 
@@ -61,7 +79,7 @@ For each skill, capture:
 
 Never stop early because one skill looks good enough.
 
-### Step 2: Evaluate Every Skill
+### Step 3: Evaluate Every Skill
 
 For each visible skill, score it on these dimensions:
 
@@ -85,13 +103,35 @@ Rules:
 
 Do not silently ignore skills during evaluation, even if most end up as `skip`.
 
-### Step 3: Read Only What Helps
+### Step 4: Choose A Skill-Use Mode
+
+Choose one of these modes before announcing the working set:
+
+1. `Recommended`
+   Use every skill that meaningfully improves the result. Include primary skills and useful support skills. This is the default when the user does not specify a mode.
+
+2. `Restricted`
+   Use only the strongest primary skills, usually `1` to `3`. Support skills may quietly inform the result, but should not appear in `Using:` unless they materially shape the output.
+
+3. `Strict`
+   Use only essential skills. Usually this means `use-skills` plus the single strongest domain skill. If no skill is clearly necessary, fail closed.
+
+Mode selection rules:
+
+- default to `Recommended` for broad quality improvement
+- use `Restricted` when the user asks for focus, concision, lower noise, or fewer skills
+- use `Strict` when the user asks for minimalism, high precision, or only necessary skills
+- reuse the last accepted mode and working set when the current context is materially the same
+- ask again only when the context, prompt meaning, expected output, or recommended working set materially changes
+- never use a mode to justify irrelevant skills
+
+### Step 5: Read Only What Helps
 
 Read only enough from `primary` and `support` skills to improve the answer.
 
 Do not bloat the context window by loading full skill libraries when a short targeted read is enough.
 
-### Step 4: Synthesize, Do Not Dump
+### Step 6: Synthesize, Do Not Dump
 
 Combine the useful guidance into one answer, artifact, or execution plan.
 
@@ -99,11 +139,13 @@ Your output should feel deliberate, not like stitched-together fragments.
 
 Before the main answer, emit a short bullet block:
 
+- `Mode: Recommended | Restricted | Strict`
 - `Using: use-skills, <primary skill 1>, <primary skill 2>`
 - `For: <purpose 1>, <purpose 2>`
 
 Rules for the block:
 
+- always include the selected mode
 - always include `use-skills` itself when activated
 - list only the selected working set, not the full scanned catalog
 - include support skills only if they materially shape the result
@@ -119,9 +161,9 @@ Rules:
 - keep the final output shaped around the user request, not around the skill catalog
 - let primary skills drive the result
 - let support skills sharpen quality, wording, structure, testing pressure, or edge-case coverage without taking ownership
-- stay invisible by default unless the user explicitly asks which skills were used
+- keep detailed routing, scores, and skipped skills invisible unless the user explicitly asks for them
 
-### Step 5: Resolve Conflicts
+### Step 7: Resolve Conflicts
 
 When multiple skills disagree, use this order:
 
@@ -136,9 +178,10 @@ If two skills cannot be reconciled, follow the higher-priority guidance and keep
 
 Use a compact structure like this:
 
-1. `Using:` bullet
-2. `For:` bullet
-3. improved answer, plan, patch, or recommendation
+1. `Mode:` bullet
+2. `Using:` bullet
+3. `For:` bullet
+4. improved answer, plan, patch, or recommendation
 
 If no skill earns a strong enough match, fail closed and do not force synthesis.
 
@@ -152,6 +195,10 @@ If no skill earns a strong enough match, fail closed and do not force synthesis.
 - Do not keep reading loosely relevant skills deeply once they are clearly only background support.
 - Do not proceed under this skill when everything is weak, vague, or speculative.
 - Do not let the upfront block become longer than the answer it introduces.
+- Do not recommend a mode without considering the current session context.
+- Do not include a support skill in `Using:` unless it materially changes the output.
+- Do not repeatedly ask the user to choose a mode when the same recommendation still applies.
+- Do ask again when the recommendation changes because the prompt, context, or expected output changed.
 
 ## Example Triggers
 
@@ -160,3 +207,5 @@ If no skill earns a strong enough match, fail closed and do not force synthesis.
 - `Rewrite this README so it is clearer, more structured, and better documented.`
 - `This request spans planning, implementation, and review. Improve the result if cross-skill synthesis is clearly useful.`
 - `Review this change and give me the strongest findings first, but stay precise and well structured.`
+- `Use fewer skills and keep this focused.`
+- `Use only the essential skills for this request.`

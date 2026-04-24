@@ -13,6 +13,9 @@
 - Preserve the automatic activation model: obvious fit should be enough, explicit naming should not be required.
 - Preserve the upfront announcement model: when activated, the skill should declare the selected working set briefly before the main answer.
 - Preserve the gating model: small primary set, support-only weak matches, fail closed when no strong fit exists.
+- Preserve the three-mode model: `Recommended`, `Restricted`, and `Strict`.
+- Preserve session-context analysis before skill recommendations.
+- Preserve reuse behavior: if the context has not materially changed, do not ask the user to choose again.
 
 ## Good Contributions
 
@@ -20,6 +23,8 @@
 - Clearer conflict-resolution rules when multiple skills disagree
 - Small documentation improvements that make installation or usage easier
 - Sharper matching rules that improve quality without increasing noise
+- Better mode-selection guidance for realistic session contexts
+- Better rules for detecting when a previous mode or working set should be reused
 
 ## Changes To Avoid
 
@@ -27,6 +32,8 @@
 - Adding long catalogs of unrelated advice
 - Forcing irrelevant skills into every output
 - Expanding the primary set so far that the skill becomes a noisy default router
+- Removing the `Restricted` or `Strict` controls from the public behavior
+- Asking for mode selection repeatedly when the existing recommendation still applies
 
 ## Review Checklist
 
@@ -34,3 +41,5 @@
 - The change does not make the skill harder to understand.
 - The public documentation still matches the `SKILL.md` behavior.
 - The change does not weaken the fail-closed gate or the support-only restriction for weak matches.
+- The change keeps mode selection and session-context analysis aligned across `SKILL.md`, `README.md`, and `REFERENCE.md`.
+- The change preserves the difference between repeated mentions with unchanged context and materially changed recommendations.

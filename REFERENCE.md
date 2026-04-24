@@ -4,25 +4,34 @@
 
 ## Operating Model
 
-The skill works in four layers:
+The skill works in six layers:
 
-1. `scan`
+1. `context`
+   Analyze the current prompt, recent session behavior, expected output, user preferences, and project context.
+
+2. `scan`
    Review all visible installed skills. Do not stop after the first plausible match.
 
-2. `score`
+3. `score`
    Evaluate each skill for:
    - domain fit
    - task fit
    - deliverable fit
    - constraint fit
 
-3. `select`
+4. `mode`
+   Choose one of three skill-use modes:
+   - `Recommended`
+   - `Restricted`
+   - `Strict`
+
+5. `select`
    Place each skill into one of three buckets:
    - `primary`
    - `support`
    - `skip`
 
-4. `synthesize`
+6. `synthesize`
    Let the `primary` set drive the result. Let `support` skills refine it without taking ownership.
 
 ## Activation Rules
@@ -72,6 +81,80 @@ A skill belongs in `skip` when it is weak, irrelevant, or only superficially rel
 
 Skipping is normal. `use-skills` is useful because it is selective, not because it forces broad coverage.
 
+## Recommendation Modes
+
+### Recommended
+
+Use every skill that meaningfully improves the result.
+
+This is the default mode when the user does not specify a restriction level.
+
+Use it when:
+
+- the task is broad or high stakes
+- several skill domains clearly improve quality
+- the user asks for the strongest output
+- session context suggests previous answers need more structure, review, or precision
+
+### Restricted
+
+Use only the strongest primary skills, usually `1` to `3`.
+
+Use it when:
+
+- the user asks for focus or concision
+- too many skills would create noise
+- the task benefits from support guidance but should be driven by a small set
+
+Support skills may quietly inform the result, but should not appear in `Using:` unless they materially shape the answer.
+
+### Strict
+
+Use only essential skills.
+
+Use it when:
+
+- the user asks for minimal skill involvement
+- the prompt needs high precision
+- only one domain skill is clearly necessary
+
+If no skill is clearly necessary, fail closed.
+
+## Session Context Signals
+
+Use session context to improve skill recommendations.
+
+Check:
+
+- current prompt and requested deliverable
+- recent user corrections or preferences
+- last accepted mode and working set, when available
+- previous output quality issues
+- current repo, files, and task context
+- whether the task needs planning, coding, review, docs, testing, design, research, or safety guidance
+- whether the user asked for broad, restricted, or strict behavior
+- whether the prompt meaning, expected output, or recommendation has materially changed
+
+Do not rely only on skill names or keyword matches.
+
+## Reuse And Reconfirmation
+
+When `use-skills` has already run in the current session, reuse the last accepted mode and working set if the context is materially the same.
+
+Do not ask the user to choose again when:
+
+- the current prompt has the same meaning
+- the expected output is the same type
+- the selected mode still fits
+- the selected skill set would not materially change
+
+Ask again when:
+
+- the prompt meaning changes
+- the expected output changes
+- session context changes the recommendation
+- the selected mode or skill set should materially change
+
 ## Fail-Closed Gate
 
 If no skill is strong enough to enter the `primary` set, `use-skills` should fail closed.
@@ -89,6 +172,7 @@ The default output starts with a short, visible working-set block when the skill
 That means:
 
 - begin with:
+  - `Mode: Recommended | Restricted | Strict`
   - `Using: use-skills, <selected skills>`
   - `For: <purposes>`
 - return the improved answer, plan, patch, or recommendation immediately after
@@ -123,3 +207,5 @@ These prompts usually work well:
 - `Rewrite this README so it is clearer, more structured, and more actionable.`
 - `Review this change and give me the strongest findings first.`
 - `Fail closed if there is no strong primary skill set.`
+- `Use restricted mode and recommend only the strongest skills.`
+- `Use strict mode and only include skills that are clearly necessary.`

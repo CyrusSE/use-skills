@@ -7,6 +7,8 @@ Instead of picking a single installed skill and stopping there, `use-skills` tel
 ## At A Glance
 
 - scans all visible skills before deciding
+- analyzes the current session, prompt, and expected output
+- recommends one of three modes: `Recommended`, `Restricted`, or `Strict`
 - keeps a small `primary` set of strong matches
 - allows weaker matches to help only as `support`
 - optimizes for best output quality, not just speed
@@ -31,12 +33,13 @@ One request can benefit from:
 
 When activated, the skill tells the agent to:
 
-1. inspect all visible installed skills
-2. score every skill against the current prompt
-3. promote only the strongest matches into a small `primary` set
-4. let weaker but useful matches contribute as `support` only
-5. fail closed if no skill is strong enough
-6. return one coherent output instead of a pile of disconnected advice
+1. analyze the current session, prompt, expected output, and project context
+2. inspect all visible installed skills
+3. score every skill against the current prompt
+4. recommend a skill-use mode
+5. promote the right skills for that mode
+6. fail closed if no skill is strong enough
+7. return one coherent output instead of a pile of disconnected advice
 
 ## Quick Start
 
@@ -79,10 +82,61 @@ This skill is intentionally gated:
 
 That restriction model is what keeps the skill useful instead of noisy.
 
+## Recommendation Modes
+
+`use-skills` gives the agent three choices before it starts:
+
+### 1. Recommended
+
+Use every skill that meaningfully improves the result.
+
+Best for broad, high-quality work where several skill domains can help. This is the default when the user does not specify a mode.
+
+### 2. Restricted
+
+Use only the strongest primary skills, usually `1` to `3`.
+
+Best when the user wants focus, concision, lower noise, or fewer skills. Support skills may still quietly inform the result when they materially improve quality.
+
+### 3. Strict
+
+Use only essential skills.
+
+Best when the user wants minimalism or high precision. Usually this means `use-skills` plus one strongest domain skill, or no activation if nothing is clearly necessary.
+
+## Session Context Analysis
+
+Before recommending a mode or skill set, `use-skills` should inspect the current session:
+
+- current prompt
+- recent user preferences and corrections
+- last accepted mode and working set, if this skill already ran in the session
+- previous output issues or quality gaps
+- current repo, files, and task context
+- expected deliverable
+- whether the task needs planning, coding, review, docs, testing, design, research, or safety guidance
+- whether the prompt, expected output, or recommendation has materially changed
+
+This keeps recommendations grounded in what is happening now, not just generic keyword matching.
+
+## Reuse Behavior
+
+If the user mentions the skill again and the context has not materially changed, reuse the same mode and working set.
+
+Do not ask the user to choose again just because the skill was mentioned again.
+
+Ask again only when something important changes:
+
+- the prompt means something different
+- the expected output changes
+- the session context changes
+- the recommended mode or skill set changes
+
 ## Upfront Announcement
 
 When `use-skills` activates, it should announce the selected working set before the main answer:
 
+- `Mode: Recommended | Restricted | Strict`
 - `Using: use-skills, <skill 1>, <skill 2>`
 - `For: <purpose 1>, <purpose 2>`
 
@@ -109,6 +163,14 @@ Review this feature request before coding and make the result stronger if multip
 
 ```text
 $use-skills
+```
+
+```text
+Use restricted skills for this. Keep only the strongest recommendations.
+```
+
+```text
+Use strict mode and only include skills that are clearly necessary.
 ```
 
 ## How The Skill Thinks
