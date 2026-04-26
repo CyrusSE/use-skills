@@ -28,14 +28,14 @@ Activate when the user:
 
 - explicitly invokes `$use-skills`
 - asks for the best possible output and the task is obviously multi-domain, such as planning plus coding, review plus testing, or documentation plus structure
-- wants a stronger answer than simple one-skill routing would provide
+- wants a stronger answer than simple one-skill selection would provide
 - presents a request where cross-skill synthesis is clearly useful even without naming this skill
 
 The user does not need to name `use-skills` for it to activate, but explicit mention must also work.
 
 Do not activate as a broad default for every non-trivial prompt. Activate only when the fit is obvious and strong enough to justify broad skill review.
 
-## Hard Restrictions
+## Operating Rules
 
 - Optimize for best output quality, even if that means reading more than one relevant skill.
 - Require at least one strong match to proceed.
@@ -43,9 +43,9 @@ Do not activate as a broad default for every non-trivial prompt. Activate only w
 - Allow weaker matches to contribute only as support.
 - When the skill activates, announce the selected working set before the main answer.
 - Keep that announcement short: one `Mode:` bullet, one `Using:` bullet, and one `For:` bullet.
-- Fail closed when no skill clears the strong-match threshold.
+- Stay inactive when no skill clears the strong-match threshold.
 - Do not require an explicit invocation phrase from the user.
-- Do not announce anything if the skill fails closed.
+- Do not announce anything if this skill stays inactive.
 
 ## Required Workflow
 
@@ -99,9 +99,9 @@ Rules:
 - promote only the strongest matches into the primary set
 - cap the primary set at `1` to `3` skills
 - if two strong skills overlap heavily, prefer the narrower one and downgrade the broader one to support
-- if no skill qualifies as `primary`, fail closed and do not apply this meta-skill
+- if no skill qualifies as `primary`, leave this meta-skill inactive
 
-Do not silently ignore skills during evaluation, even if most end up as `skip`.
+Review each visible skill during evaluation, even if most end up as `skip`.
 
 ### Step 4: Choose A Skill-Use Mode
 
@@ -111,10 +111,10 @@ Choose one of these modes before announcing the working set:
    Use every skill that meaningfully improves the result. Include primary skills and useful support skills. This is the default when the user does not specify a mode.
 
 2. `Restricted`
-   Use only the strongest primary skills, usually `1` to `3`. Support skills may quietly inform the result, but should not appear in `Using:` unless they materially shape the output.
+   Use only the strongest primary skills, usually `1` to `3`. Support skills may inform the result, but should not appear in `Using:` unless they materially shape the output.
 
 3. `Strict`
-   Use only essential skills. Usually this means `use-skills` plus the single strongest domain skill. If no skill is clearly necessary, fail closed.
+   Use only essential skills. Usually this means `use-skills` plus the single strongest domain skill. If no skill is clearly necessary, leave this meta-skill inactive.
 
 Mode selection rules:
 
@@ -151,7 +151,7 @@ Rules for the block:
 - include support skills only if they materially shape the result
 - describe purposes in `For:` as functions, not repeated skill names
 - do not include skipped skills
-- do not include confidence scores or long routing traces
+- do not include confidence scores or lengthy selection notes
 
 Rules:
 
@@ -161,14 +161,14 @@ Rules:
 - keep the final output shaped around the user request, not around the skill catalog
 - let primary skills drive the result
 - let support skills sharpen quality, wording, structure, testing pressure, or edge-case coverage without taking ownership
-- keep detailed routing, scores, and skipped skills invisible unless the user explicitly asks for them
+- show detailed selection notes, scores, and skipped skills only when the user explicitly asks for them
 
 ### Step 7: Resolve Conflicts
 
 When multiple skills disagree, use this order:
 
 1. Direct user instructions
-2. System, developer, or repository instructions
+2. Higher-priority session and project-level instructions
 3. Narrower domain skills over broader generic skills
 4. Newer or more explicit skill instructions over vague ones
 
@@ -183,9 +183,9 @@ Use a compact structure like this:
 3. `For:` bullet
 4. improved answer, plan, patch, or recommendation
 
-If no skill earns a strong enough match, fail closed and do not force synthesis.
+If no skill earns a strong enough match, stay inactive and do not force synthesis.
 
-## Guardrails
+## Quality Checks
 
 - Do not force irrelevant domain advice into the result.
 - Do not claim a skill was used if you only saw its name.
@@ -193,7 +193,7 @@ If no skill earns a strong enough match, fail closed and do not force synthesis.
 - Do not turn this into a popularity contest. The best result matters more than the biggest or most famous skill.
 - Do not let support-level skills hijack the final answer.
 - Do not keep reading loosely relevant skills deeply once they are clearly only background support.
-- Do not proceed under this skill when everything is weak, vague, or speculative.
+- Leave this skill inactive when everything is weak, vague, or speculative.
 - Do not let the upfront block become longer than the answer it introduces.
 - Do not recommend a mode without considering the current session context.
 - Do not include a support skill in `Using:` unless it materially changes the output.
