@@ -1,45 +1,35 @@
 # Contributing
 
-`use-skills` works only if it stays narrow and predictable.
+Keep `use-skills` small, readable, and focused on skill selection.
 
-## Contribution Rules
+## Contribution Guidelines
 
-- Keep the repository focused on cross-skill discovery, classification, and synthesis.
-- Prefer examples that show how multiple skills improve one realistic request.
-- Avoid adding runtime-specific behavior unless it is clearly marked as optional.
-- Keep the instructions readable in one pass. This repo should stay lightweight.
-- When you change the behavior, update the README and examples in the same pull request.
-- Keep `README.md`, `REFERENCE.md`, and `SKILL.md` aligned. The public docs should never describe a different model from the runtime instructions.
-- Preserve the automatic activation model: obvious fit should be enough, explicit naming should not be required.
-- Preserve the upfront announcement model: when activated, the skill should declare the selected working set briefly before the main answer.
-- Preserve the gating model: small primary set, support-only weak matches, fail closed when no strong fit exists.
-- Preserve the three-mode model: `Recommended`, `Restricted`, and `Strict`.
-- Preserve session-context analysis before skill recommendations.
-- Preserve reuse behavior: if the context has not materially changed, do not ask the user to choose again.
+- Keep examples realistic.
+- Keep the working set small.
+- Keep `README.md`, `REFERENCE.md`, and `SKILL.md` aligned.
+- Update examples when behavior changes.
+- Preserve the three modes: `Recommended`, `Restricted`, and `Strict`.
+- Prefer clear wording over dense rule language.
 
 ## Good Contributions
 
-- Better examples for planning, coding, design, review, or documentation tasks
-- Clearer conflict-resolution rules when multiple skills disagree
-- Small documentation improvements that make installation or usage easier
-- Sharper matching rules that improve quality without increasing noise
-- Better mode-selection guidance for realistic session contexts
-- Better rules for detecting when a previous mode or working set should be reused
+- clearer examples
+- better mode-selection guidance
+- simpler wording
+- documentation fixes
+- sharper match criteria
 
 ## Changes To Avoid
 
-- Turning the repo into a CLI, plugin, or framework
-- Adding long catalogs of unrelated advice
-- Forcing irrelevant skills into every output
-- Expanding the primary set so far that the skill becomes a noisy default router
-- Removing the `Restricted` or `Strict` controls from the public behavior
-- Asking for mode selection repeatedly when the existing recommendation still applies
+- long catalogs of unrelated advice
+- making the skill run for every request
+- adding skills that do not improve the output
+- expanding the working set so far that responses become noisy
+- repeatedly asking for mode selection when the prior choice still fits
 
 ## Review Checklist
 
-- The change improves the quality of the synthesized output.
-- The change does not make the skill harder to understand.
-- The public documentation still matches the `SKILL.md` behavior.
-- The change does not weaken the fail-closed gate or the support-only restriction for weak matches.
-- The change keeps mode selection and session-context analysis aligned across `SKILL.md`, `README.md`, and `REFERENCE.md`.
-- The change preserves the difference between repeated mentions with unchanged context and materially changed recommendations.
+- The change improves output quality.
+- The docs still match `SKILL.md`.
+- The wording stays concise.
+- The examples match the current behavior.
