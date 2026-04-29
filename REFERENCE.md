@@ -44,17 +44,19 @@ Skipping is expected. The point is to choose well, not to use everything.
 
 ## Modes
 
+### All related
+
+Use every available skill that is meaningfully related to the request.
+
+This is the broadest mode.
+
 ### Recommended
 
-Use all selected skills that materially improve the result.
+Use the best balanced working set for the request.
 
 ### Restricted
 
 Use only the strongest selected skills, usually one to three.
-
-### Strict
-
-Use only essential skills.
 
 ## Reuse
 
@@ -71,7 +73,7 @@ Choose again when:
 
 When used, begin with:
 
-- `Mode: Recommended | Restricted | Strict`
+- `Mode: All related | Recommended | Restricted`
 - `Using: use-skills, <selected skills>`
 - `For: <purposes>`
 

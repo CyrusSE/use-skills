@@ -8,7 +8,7 @@ Keep `use-skills` small, readable, and focused on skill selection.
 - Keep the working set small.
 - Keep `README.md`, `REFERENCE.md`, and `SKILL.md` aligned.
 - Update examples when behavior changes.
-- Preserve the three modes: `Recommended`, `Restricted`, and `Strict`.
+- Preserve the three modes: `All related`, `Recommended`, and `Restricted`.
 - Prefer clear wording over dense rule language.
 
 ## Good Contributions

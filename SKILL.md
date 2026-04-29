@@ -30,7 +30,7 @@ Skip this skill when one domain skill is clearly enough.
 5. Read only the parts of selected skills that help with the current task.
 6. Produce one unified answer, plan, patch, or recommendation.
 
-Keep the working set small. Most requests should use `use-skills` plus one to three domain skills.
+Keep the working set appropriate to the selected mode. Most requests should use `Recommended` unless the user asks for broader or narrower skill use.
 
 ## Match Labels
 
@@ -46,17 +46,17 @@ If no skill is a strong fit, leave this skill unused.
 
 Pick one mode before the main response:
 
-- `Recommended`: use all selected skills that meaningfully improve the result
+- `All related`: use every available skill that is meaningfully related to the request
+- `Recommended`: use the best balanced working set for the request
 - `Restricted`: use only the strongest matches, usually one to three skills
-- `Strict`: use only essential skills
 
-Use `Recommended` by default. Use `Restricted` or `Strict` when the user asks for fewer skills, more focus, or only the essentials.
+Use `Recommended` by default. Use `All related` when the user asks to use all related/helpful skills. Use `Restricted` when the user asks for fewer skills, more focus, or the smallest useful working set.
 
 ## Response Block
 
 When this skill is used, start with a compact block:
 
-- `Mode: Recommended | Restricted | Strict`
+- `Mode: All related | Recommended | Restricted`
 - `Using: use-skills, <selected skill>`
 - `For: <short purpose>`
 
@@ -87,4 +87,4 @@ When selected skills point in different directions, prefer:
 - `Rewrite this README so it is clearer and better structured.`
 - `This spans planning, implementation, and review. Use the best combination of skills.`
 - `Review this change and give the strongest findings first.`
-- `Use only the essential skills for this request.`
+- `Use restricted mode and only the strongest skills for this request.`

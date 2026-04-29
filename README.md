@@ -8,7 +8,7 @@ It is useful when a request spans more than one area, such as planning plus codi
 
 - reviews the available skill list
 - chooses a small working set
-- supports three modes: `Recommended`, `Restricted`, and `Strict`
+- supports three modes: `All related`, `Recommended`, and `Restricted`
 - starts with a short working-set block when used
 - combines selected guidance into one coherent result
 - stays unused when no skill is a strong match
@@ -30,9 +30,15 @@ The skill can also be selected automatically when the request is clearly multi-d
 
 ## Modes
 
+### All related
+
+Uses every available skill that is meaningfully related to the request.
+
+This is best when the user explicitly wants broad skill coverage.
+
 ### Recommended
 
-Uses every selected skill that meaningfully improves the result.
+Uses the best balanced working set for the request.
 
 This is the default for broad quality improvement.
 
@@ -42,17 +48,11 @@ Uses only the strongest matches, usually one to three skills.
 
 This is best when the user asks for focus or fewer skills.
 
-### Strict
-
-Uses only essential skills.
-
-This is best when the user wants the smallest useful working set.
-
 ## Output Shape
 
 When used, the response begins with:
 
-- `Mode: Recommended | Restricted | Strict`
+- `Mode: All related | Recommended | Restricted`
 - `Using: use-skills, <selected skill>`
 - `For: <short purpose>`
 

@@ -38,16 +38,22 @@ Review this change and give me the strongest findings first.
 This spans planning, implementation, and review. Use the best combination of skills and keep the final output clean.
 ```
 
-## Focused Use
+## All Related Use
+
+```text
+Use all related skills for this request.
+```
+
+## Recommended Use
+
+```text
+Use the recommended skill set for this request.
+```
+
+## Restricted Use
 
 ```text
 Use restricted mode. Recommend only the strongest skills.
-```
-
-## Essential Use
-
-```text
-Use strict mode. Include only essential skills.
 ```
 
 ## Reuse Previous Choice
