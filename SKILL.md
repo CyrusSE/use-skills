@@ -30,7 +30,7 @@ Skip this skill when one domain skill is clearly enough.
 5. Read only the parts of selected skills that help with the current task.
 6. Produce one unified answer, plan, patch, or recommendation.
 
-Keep the working set appropriate to the selected mode. Most requests should use `Recommended` unless the user asks for broader or narrower skill use.
+Keep the working set appropriate to the selected mode. `Recommended` is the usual choice when the user wants balanced quality, but ask for a mode when no reusable prior choice exists.
 
 ## Match Labels
 
@@ -44,13 +44,17 @@ If no skill is a strong fit, leave this skill unused.
 
 ## Modes
 
-Pick one mode before the main response:
+Ask the user to choose one mode before the main response when there is no reusable prior choice:
 
 - `All related`: use every available skill that is meaningfully related to the request
 - `Recommended`: use the best balanced working set for the request
 - `Restricted`: use only the strongest matches, usually one to three skills
 
-Use `Recommended` by default. Use `All related` when the user asks to use all related/helpful skills. Use `Restricted` when the user asks for fewer skills, more focus, or the smallest useful working set.
+Ask with this compact format:
+
+`Choose skill mode: All related, Recommended, or Restricted?`
+
+Do not choose silently unless the user already specified a mode or a previous mode still applies. Reuse the previous mode when the task and expected output are materially the same. Ask again when the task, expected output, or selected skill set changes.
 
 ## Response Block
 
@@ -78,7 +82,9 @@ When selected skills point in different directions, prefer:
 - Avoid duplicate guidance.
 - Keep the opening block shorter than the answer it introduces.
 - Include a support skill in `Using:` only when it materially changes the result.
-- Ask again about mode only when the task or expected output has changed.
+- Ask for mode when no reusable prior mode exists.
+- Do not ask again when the prior mode still fits the task and expected output.
+- Ask again when the task, expected output, or selected skill set has changed.
 
 ## Example Triggers
 

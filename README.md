@@ -30,6 +30,14 @@ The skill can also be selected automatically when the request is clearly multi-d
 
 ## Modes
 
+When no previous mode applies, the skill asks:
+
+```text
+Choose skill mode: All related, Recommended, or Restricted?
+```
+
+It should not ask again if the task and expected output have not materially changed.
+
 ### All related
 
 Uses every available skill that is meaningfully related to the request.
@@ -40,7 +48,7 @@ This is best when the user explicitly wants broad skill coverage.
 
 Uses the best balanced working set for the request.
 
-This is the default for broad quality improvement.
+This is the usual choice for broad quality improvement.
 
 ### Restricted
 

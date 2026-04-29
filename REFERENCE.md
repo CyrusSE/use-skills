@@ -44,6 +44,18 @@ Skipping is expected. The point is to choose well, not to use everything.
 
 ## Modes
 
+When there is no reusable prior mode, ask the user to choose:
+
+```text
+Choose skill mode: All related, Recommended, or Restricted?
+```
+
+Do not choose silently unless:
+
+- the user already specified a mode
+- the previous mode still applies to the current task and expected output
+- session context makes the same choice clearly reusable
+
 ### All related
 
 Use every available skill that is meaningfully related to the request.
@@ -68,6 +80,7 @@ Choose again when:
 - the task changes
 - the selected skill set would change
 - the user asks for a different mode
+- there is no previous mode to reuse
 
 ## Response Block
 

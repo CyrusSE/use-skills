@@ -63,3 +63,11 @@ $use-skills again
 ```
 
 Expected behavior: reuse the previous mode and working set if the task has not materially changed.
+
+## First Mode Choice
+
+```text
+$use-skills
+```
+
+Expected behavior: if no previous mode applies, ask `Choose skill mode: All related, Recommended, or Restricted?`
