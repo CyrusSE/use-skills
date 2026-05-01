@@ -5,7 +5,7 @@
 <h1 align="center">use-skills</h1>
 
 <p align="center">
-  Choose the right installed skills before the agent starts working.
+  Stop naming every skill manually. Let one skill choose the right working set.
 </p>
 
 <p align="center">
@@ -14,13 +14,16 @@
   <img alt="Modes" src="https://img.shields.io/badge/modes-3-1D3B35">
 </p>
 
-`use-skills` helps an agent choose a relevant working set of installed skills for complex work.
+`use-skills` is a meta-skill that chooses which installed skills should help with a request.
 
-It is useful when a request spans more than one area, such as planning plus coding, review plus testing, or writing plus structure.
+Instead of writing prompts like `use writing-plans, code-reviewer, testing, docs, and refactoring`, you invoke `$use-skills` and let it recommend the right combination.
+
+It is useful when a request spans more than one area, such as planning plus coding, review plus testing, writing plus structure, or documentation plus code changes.
 
 ## At A Glance
 
-- reviews the available skill list
+- removes the need to manually mention every relevant skill
+- reviews the available skill list for you
 - asks the user to choose a mode before exploring when no prior mode applies
 - shows likely skill candidates for each mode
 - supports three modes: `All related`, `Recommended`, and `Restricted`
@@ -41,7 +44,29 @@ $use-skills
 Turn this feature request into an implementation plan with testing notes.
 ```
 
+You do not need to know whether that should involve planning, review, testing, documentation, or another installed skill. `use-skills` handles that selection step.
+
 The skill can also be selected automatically when the request is clearly multi-domain.
+
+## Why Use It
+
+Without `use-skills`, users have to know the skill catalog and manually name the right combination.
+
+With `use-skills`, the workflow becomes:
+
+```text
+$use-skills
+Patch this bug report with the most relevant skill guidance driving the fix.
+```
+
+Then choose a mode. The agent maps the prompt to the right working set and continues with the task.
+
+This is especially useful when:
+
+- you have many installed skills
+- you are not sure which skill names fit the task
+- a task needs several kinds of guidance at once
+- you want the agent to explain the working set before it starts
 
 ## Modes
 
@@ -107,6 +132,7 @@ The user gets a clear choice:
 
 ## Good Fits
 
+- replacing long prompts that manually name many skills
 - planning a feature before implementation
 - combining coding, testing, and review guidance
 - improving a README or product spec
