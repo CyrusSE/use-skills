@@ -51,23 +51,24 @@ Ask the user to choose one mode before any workspace exploration, tool calls, fi
 - `Recommended`: use the best balanced working set for the request
 - `Restricted`: use only the strongest matches, usually one to three skills
 
-Ask with this compact format:
+Ask with this compact Markdown format:
 
-```text
-Choose skill mode. Reply with 1, 2, or 3.
+**1. All related** - use every available skill that is meaningfully related.
 
-1. All related - use every available skill that is meaningfully related.
-   Using: use-skills, <all related skill candidates>
-   For: broad coverage across <purposes>
+**Using:** $use-skills, <all related skill candidates>
+**For:** broad coverage across <purposes>
 
-2. Recommended - use the best balanced working set.
-   Using: use-skills, <recommended skill candidates>
-   For: strong output without unnecessary noise
+**2. Recommended** - use the best balanced working set.
 
-3. Restricted - use only the strongest matches.
-   Using: use-skills, <one to three strongest skill candidates>
-   For: focused output with minimal skill involvement
-```
+**Using:** $use-skills, <recommended skill candidates>
+**For:** strong output without unnecessary noise
+
+**3. Restricted** - use only the strongest matches.
+
+**Using:** $use-skills, <one to three strongest skill candidates>
+**For:** focused output with minimal skill involvement
+
+**Choose skill mode. Reply with 1, 2, or 3.**
 
 ## Mode Choice Hard Gate
 
@@ -79,7 +80,9 @@ Do not inspect files, search the workspace, read skill files, or infer a final m
 
 The menu should still mention likely skills for each option. Use only the current prompt and already visible skill names/descriptions to draft those candidate lists. Do not use tools to discover more context before the user chooses.
 
-Replace the placeholder skill candidates with actual visible skill names whenever they are available. If the visible skill list is unavailable, say `skills selected after mode choice` instead of inventing names.
+Replace the placeholder skill candidates with actual visible skill names whenever they are available. Prefix skill names with `$`, such as `$use-skills` and `$writing-plans`. If the visible skill list is unavailable, say `skills selected after mode choice` instead of inventing names.
+
+Keep each mode separated by a blank line. Bold the option title, `Using:`, `For:`, and final choose line. Put `Choose skill mode. Reply with 1, 2, or 3.` after the three options, not before them.
 
 Phrases like `best`, `most relevant`, `strongest`, `helpful`, or `best combination` do not count as explicit mode choices.
 
@@ -90,7 +93,7 @@ Do not choose silently unless the user already specified one of the three modes 
 When this skill is used, start with a compact block:
 
 - `Mode: All related | Recommended | Restricted`
-- `Using: use-skills, <selected skill>`
+- `Using: $use-skills, $<selected-skill>`
 - `For: <short purpose>`
 
 List only skills that actually shape the answer. Keep selection details out of the response unless the user asks for them.

@@ -82,18 +82,19 @@ Expected behavior: ask the numbered mode question before reading files or select
 
 Example first response:
 
-```text
-Choose skill mode. Reply with 1, 2, or 3.
+**1. All related** - use every available skill that is meaningfully related.
 
-1. All related - use every available skill that is meaningfully related.
-   Using: use-skills, ctf-solver, code-reviewer, writing-plans
-   For: broad coverage across debugging, review, and patch planning
+**Using:** $use-skills, $ctf-solver, $code-reviewer, $writing-plans
+**For:** broad coverage across debugging, review, and patch planning
 
-2. Recommended - use the best balanced working set.
-   Using: use-skills, code-reviewer, writing-plans
-   For: strong fix guidance without unnecessary noise
+**2. Recommended** - use the best balanced working set.
 
-3. Restricted - use only the strongest matches.
-   Using: use-skills, code-reviewer
-   For: focused bug-fix review
-```
+**Using:** $use-skills, $code-reviewer, $writing-plans
+**For:** strong fix guidance without unnecessary noise
+
+**3. Restricted** - use only the strongest matches.
+
+**Using:** $use-skills, $code-reviewer
+**For:** focused bug-fix review
+
+**Choose skill mode. Reply with 1, 2, or 3.**
