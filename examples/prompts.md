@@ -82,9 +82,10 @@ Expected behavior: ask the numbered mode question before reading files or select
 
 Example first response:
 
+```text
 1. All related - use every available skill that is meaningfully related.
-   Using: use-skills, brainstorming, writing-plans, humanizer
-   For: broad coverage across fix strategy, report structure, and wording quality
+   Using: use-skills, brainstorming, writing-plans, humanizer, enhance-prompt
+   For: broad coverage across fix strategy, report structure, prompt clarity, and wording
 
 2. Recommended - use the best balanced working set.
    Using: use-skills, brainstorming, writing-plans
@@ -95,3 +96,4 @@ Example first response:
    For: focused output with minimal skill involvement
 
 Choose skill mode. Reply with 1, 2, or 3.
+```

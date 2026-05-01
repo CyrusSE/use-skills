@@ -72,9 +72,10 @@ This is especially useful when:
 
 When no previous mode applies, the skill asks before doing anything else. The prompt should be specific enough to help the user choose:
 
+```text
 1. All related - use every available skill that is meaningfully related.
-   Using: use-skills, brainstorming, writing-plans, humanizer
-   For: broad coverage across fix strategy, report structure, and wording quality
+   Using: use-skills, brainstorming, writing-plans, humanizer, enhance-prompt
+   For: broad coverage across fix strategy, report structure, prompt clarity, and wording
 
 2. Recommended - use the best balanced working set.
    Using: use-skills, brainstorming, writing-plans
@@ -85,12 +86,13 @@ When no previous mode applies, the skill asks before doing anything else. The pr
    For: focused output with minimal skill involvement
 
 Choose skill mode. Reply with 1, 2, or 3.
+```
 
 It should not inspect files, search the workspace, select skills, or infer a mode before asking.
 
 It should not ask again if the task and expected output have not materially changed. Words like `best`, `most relevant`, and `strongest` do not count as explicit mode choices.
 
-Terminal note: the mode menu uses plain indented text because some agent CLIs do not visually render Markdown styling inside progress transcripts.
+Terminal note: the mode menu uses a fenced `text` block because some agent CLIs collapse blank lines in normal list output.
 
 Spacing rule: there must be one empty line between option blocks. If `2. Recommended` appears directly below option 1's `For:` line, the menu is formatted wrong.
 
