@@ -37,6 +37,14 @@ It is useful when a request spans more than one area, such as planning plus codi
 npx skills add https://github.com/CyrusSE/use-skills --global
 ```
 
+## Registry Compatibility
+
+The canonical runtime skill file is [SKILL.md](./SKILL.md).
+
+A mirrored copy also lives at [skills/use-skills/SKILL.md](./skills/use-skills/SKILL.md) for registries that require a root `skills/` directory, such as `skills.re`.
+
+This keeps the current GitHub install flow working while making the repo easier to index across more skill directories.
+
 ## Basic Use
 
 ```text
@@ -166,6 +174,9 @@ use-skills/
 │   └── use-skills-mode-picker.svg
 ├── examples/
 │   └── prompts.md
+├── skills/
+│   └── use-skills/
+│       └── SKILL.md
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── README.md
