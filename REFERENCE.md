@@ -46,20 +46,20 @@ Skipping is expected. The point is to choose well, not to use everything.
 
 When there is no reusable prior mode, ask the user to choose before any workspace exploration, tool calls, file reads, or skill selection:
 
-**1. All related** - use every available skill that is meaningfully related.
+**1. ALL RELATED** - use every available skill that is meaningfully related.
 
-**Using:** $use-skills, <all related skill candidates>
-**For:** broad coverage across <purposes>
+**USING:** $use-skills, $<all-related-skill-candidate>
+**FOR:** broad coverage across <purposes>
 
-**2. Recommended** - use the best balanced working set.
+**2. RECOMMENDED** - use the best balanced working set.
 
-**Using:** $use-skills, <recommended skill candidates>
-**For:** strong output without unnecessary noise
+**USING:** $use-skills, $<recommended-skill-candidate>
+**FOR:** strong output without unnecessary noise
 
-**3. Restricted** - use only the strongest matches.
+**3. RESTRICTED** - use only the strongest matches.
 
-**Using:** $use-skills, <one to three strongest skill candidates>
-**For:** focused output with minimal skill involvement
+**USING:** $use-skills, $<one-to-three-strongest-skill-candidates>
+**FOR:** focused output with minimal skill involvement
 
 **Choose skill mode. Reply with 1, 2, or 3.**
 
@@ -73,11 +73,19 @@ Phrases like `best`, `most relevant`, `strongest`, `helpful`, or `best combinati
 
 If `$use-skills` is invoked and no mode is explicit, the mode question must be the next assistant response.
 
-The mode question may include likely skills for each option, but those candidates must come only from already visible skill metadata and the current prompt. Do not use tools, inspect files, or read skill bodies before the user chooses.
+The mode question may include likely skills for each option, but those candidates must come only from visible/provided skill metadata and the current prompt. Do not use tools, inspect files, or read skill bodies before the user chooses.
 
-Use real visible skill names when available and prefix them with `$`. If no visible skill list is available, use `skills selected after mode choice` rather than invented names.
+Allowed candidate sources before mode choice:
 
-Keep each mode separated by a blank line. Bold the option title, `Using:`, `For:`, and final choose line. Put `Choose skill mode. Reply with 1, 2, or 3.` after the three options, not before them.
+- installed skill metadata already visible in the current session
+- skill blocks pasted or provided by the user in the current conversation
+- skills explicitly named by the user with `$skill-name`, when a visible/provided description exists in the session
+
+Use real visible/provided skill names when available and prefix them with `$`. If no visible skill list is available, use `skills selected after mode choice` rather than invented names.
+
+For `All related`, include every candidate with a meaningful primary or support role. If the user explicitly names or provides a skill and it has any plausible support role, include it in `All related` even when it is too broad or weak for `Recommended`. Example: include `$enhance-prompt` when the task involves improving prompts, examples, mode menus, docs, UI prompts, or prompt-facing wording.
+
+Keep each mode separated by a blank line. Use Markdown bold for the option title, `USING:`, `FOR:`, and final choose line. Use uppercase labels because some terminal transcripts do not visually render Markdown bold. Put `Choose skill mode. Reply with 1, 2, or 3.` after the three options, not before them.
 
 ### All related
 
