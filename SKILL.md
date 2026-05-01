@@ -53,15 +53,33 @@ Ask the user to choose one mode before any workspace exploration, tool calls, fi
 
 Ask with this compact format:
 
-`Choose skill mode: All related, Recommended, or Restricted?`
+```text
+Choose skill mode. Reply with 1, 2, or 3.
+
+1. All related - use every available skill that is meaningfully related.
+   Using: use-skills, <all related skill candidates>
+   For: broad coverage across <purposes>
+
+2. Recommended - use the best balanced working set.
+   Using: use-skills, <recommended skill candidates>
+   For: strong output without unnecessary noise
+
+3. Restricted - use only the strongest matches.
+   Using: use-skills, <one to three strongest skill candidates>
+   For: focused output with minimal skill involvement
+```
 
 ## Mode Choice Hard Gate
 
 If `$use-skills` is invoked and the prompt does not explicitly name `All related`, `Recommended`, or `Restricted`, the next assistant response must be only:
 
-`Choose skill mode: All related, Recommended, or Restricted?`
+the numbered mode menu above.
 
-Do not inspect files, search the workspace, list skills, select a working set, or infer a mode before asking.
+Do not inspect files, search the workspace, read skill files, or infer a final mode before asking.
+
+The menu should still mention likely skills for each option. Use only the current prompt and already visible skill names/descriptions to draft those candidate lists. Do not use tools to discover more context before the user chooses.
+
+Replace the placeholder skill candidates with actual visible skill names whenever they are available. If the visible skill list is unavailable, say `skills selected after mode choice` instead of inventing names.
 
 Phrases like `best`, `most relevant`, `strongest`, `helpful`, or `best combination` do not count as explicit mode choices.
 

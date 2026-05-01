@@ -70,7 +70,7 @@ Expected behavior: reuse the previous mode and working set if the task has not m
 $use-skills
 ```
 
-Expected behavior: if no previous mode applies, ask `Choose skill mode: All related, Recommended, or Restricted?`
+Expected behavior: if no previous mode applies, ask a numbered `1`, `2`, `3` mode question with likely skill candidates for each option.
 
 ## Ambiguous Mode
 
@@ -78,4 +78,22 @@ Expected behavior: if no previous mode applies, ask `Choose skill mode: All rela
 Patch this bug report with the most relevant skill guidance driving the fix. $use-skills
 ```
 
-Expected behavior: ask `Choose skill mode: All related, Recommended, or Restricted?` before reading files or selecting skills, because `most relevant` is not an explicit mode.
+Expected behavior: ask the numbered mode question before reading files or selecting skills, because `most relevant` is not an explicit mode.
+
+Example first response:
+
+```text
+Choose skill mode. Reply with 1, 2, or 3.
+
+1. All related - use every available skill that is meaningfully related.
+   Using: use-skills, ctf-solver, code-reviewer, writing-plans
+   For: broad coverage across debugging, review, and patch planning
+
+2. Recommended - use the best balanced working set.
+   Using: use-skills, code-reviewer, writing-plans
+   For: strong fix guidance without unnecessary noise
+
+3. Restricted - use only the strongest matches.
+   Using: use-skills, code-reviewer
+   For: focused bug-fix review
+```

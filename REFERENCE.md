@@ -47,7 +47,19 @@ Skipping is expected. The point is to choose well, not to use everything.
 When there is no reusable prior mode, ask the user to choose before any workspace exploration, tool calls, file reads, or skill selection:
 
 ```text
-Choose skill mode: All related, Recommended, or Restricted?
+Choose skill mode. Reply with 1, 2, or 3.
+
+1. All related - use every available skill that is meaningfully related.
+   Using: use-skills, <all related skill candidates>
+   For: broad coverage across <purposes>
+
+2. Recommended - use the best balanced working set.
+   Using: use-skills, <recommended skill candidates>
+   For: strong output without unnecessary noise
+
+3. Restricted - use only the strongest matches.
+   Using: use-skills, <one to three strongest skill candidates>
+   For: focused output with minimal skill involvement
 ```
 
 Do not choose silently unless:
@@ -59,6 +71,10 @@ Do not choose silently unless:
 Phrases like `best`, `most relevant`, `strongest`, `helpful`, or `best combination` do not count as explicit mode choices.
 
 If `$use-skills` is invoked and no mode is explicit, the mode question must be the next assistant response.
+
+The mode question may include likely skills for each option, but those candidates must come only from already visible skill metadata and the current prompt. Do not use tools, inspect files, or read skill bodies before the user chooses.
+
+Use real visible skill names when available. If no visible skill list is available, use `skills selected after mode choice` rather than invented names.
 
 ### All related
 
