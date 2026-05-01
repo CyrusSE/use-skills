@@ -151,6 +151,7 @@ The user gets a clear choice:
 
 ## Documentation Map
 
+- `agents/openai.yaml`: UI metadata for discovery surfaces that read skill interface fields
 - [SKILL.md](./SKILL.md): runtime behavior
 - [REFERENCE.md](./REFERENCE.md): selection model
 - [examples/prompts.md](./examples/prompts.md): example prompts
@@ -159,6 +160,8 @@ The user gets a clear choice:
 
 ```text
 use-skills/
+├── agents/
+│   └── openai.yaml
 ├── assets/
 │   └── use-skills-mode-picker.svg
 ├── examples/
