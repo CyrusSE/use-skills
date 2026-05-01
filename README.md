@@ -72,28 +72,25 @@ This is especially useful when:
 
 When no previous mode applies, the skill asks before doing anything else. The prompt should be specific enough to help the user choose:
 
-**1. ALL RELATED** - use every available skill that is meaningfully related.
+1. All related - use every available skill that is meaningfully related.
+   Using: use-skills, brainstorming, writing-plans, humanizer
+   For: broad coverage across fix strategy, report structure, and wording quality
 
-**USING:** $use-skills, $enhance-prompt, $writing-plans, $humanizer, $brainstorming
-**FOR:** broad coverage across prompt framing, report structure, wording, and planning
+2. Recommended - use the best balanced working set.
+   Using: use-skills, brainstorming, writing-plans
+   For: strong output without unnecessary noise
 
-**2. RECOMMENDED** - use the best balanced working set.
+3. Restricted - use only the strongest matches.
+   Using: use-skills, brainstorming
+   For: focused output with minimal skill involvement
 
-**USING:** $use-skills, $writing-plans, $humanizer
-**FOR:** strong output without unnecessary noise
-
-**3. RESTRICTED** - use only the strongest matches.
-
-**USING:** $use-skills, $writing-plans
-**FOR:** focused output with minimal skill involvement
-
-**Choose skill mode. Reply with 1, 2, or 3.**
+Choose skill mode. Reply with 1, 2, or 3.
 
 It should not inspect files, search the workspace, select skills, or infer a mode before asking.
 
 It should not ask again if the task and expected output have not materially changed. Words like `best`, `most relevant`, and `strongest` do not count as explicit mode choices.
 
-Terminal note: some agent CLIs do not visually render Markdown bold inside progress transcripts. The menu still uses Markdown bold, but the option names and labels are uppercase so the structure remains readable in plain terminal output.
+Terminal note: the mode menu uses plain indented text because some agent CLIs do not visually render Markdown styling inside progress transcripts.
 
 ### All related
 
@@ -118,7 +115,7 @@ This is best when the user asks for focus or fewer skills.
 When used, the response begins with:
 
 - `Mode: All related | Recommended | Restricted`
-- `Using: $use-skills, $<selected-skill>`
+- `Using: use-skills, <selected skill>`
 - `For: <short purpose>`
 
 Then the agent continues with the answer, plan, patch, or recommendation.

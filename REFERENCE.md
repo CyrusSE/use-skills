@@ -46,22 +46,19 @@ Skipping is expected. The point is to choose well, not to use everything.
 
 When there is no reusable prior mode, ask the user to choose before any workspace exploration, tool calls, file reads, or skill selection:
 
-**1. ALL RELATED** - use every available skill that is meaningfully related.
+1. All related - use every available skill that is meaningfully related.
+   Using: use-skills, <all related skill candidates>
+   For: broad coverage across <purposes>
 
-**USING:** $use-skills, $<all-related-skill-candidate>
-**FOR:** broad coverage across <purposes>
+2. Recommended - use the best balanced working set.
+   Using: use-skills, <recommended skill candidates>
+   For: strong output without unnecessary noise
 
-**2. RECOMMENDED** - use the best balanced working set.
+3. Restricted - use only the strongest matches.
+   Using: use-skills, <one to three strongest skill candidates>
+   For: focused output with minimal skill involvement
 
-**USING:** $use-skills, $<recommended-skill-candidate>
-**FOR:** strong output without unnecessary noise
-
-**3. RESTRICTED** - use only the strongest matches.
-
-**USING:** $use-skills, $<one-to-three-strongest-skill-candidates>
-**FOR:** focused output with minimal skill involvement
-
-**Choose skill mode. Reply with 1, 2, or 3.**
+Choose skill mode. Reply with 1, 2, or 3.
 
 Do not choose silently unless:
 
@@ -81,11 +78,13 @@ Allowed candidate sources before mode choice:
 - skill blocks pasted or provided by the user in the current conversation
 - skills explicitly named by the user with `$skill-name`, when a visible/provided description exists in the session
 
-Use real visible/provided skill names when available and prefix them with `$`. If no visible skill list is available, use `skills selected after mode choice` rather than invented names.
+Use real visible/provided skill names when available. In the mode menu, use bare skill names such as `use-skills`, `brainstorming`, and `writing-plans` without a `$` prefix. If no visible skill list is available, use `skills selected after mode choice` rather than invented names.
 
-For `All related`, include every candidate with a meaningful primary or support role. If the user explicitly names or provides a skill and it has any plausible support role, include it in `All related` even when it is too broad or weak for `Recommended`. Example: include `$enhance-prompt` when the task involves improving prompts, examples, mode menus, docs, UI prompts, or prompt-facing wording.
+For `All related`, be aggressive. Include every candidate with a meaningful primary, support, adjacent-context, prompt-quality, wording, planning, or framing role. If a skill is commonly helpful for making the prompt, context, plan, or output better, include it in `All related` even when it is not the narrowest domain match. If the user explicitly names or provides a skill and it has any plausible support role, include it in `All related` even when it is too broad or weak for `Recommended`. Example: include `enhance-prompt` when the task involves improving prompts, examples, mode menus, docs, UI prompts, or prompt-facing wording.
 
-Keep each mode separated by a blank line. Use Markdown bold for the option title, `USING:`, `FOR:`, and final choose line. Use uppercase labels because some terminal transcripts do not visually render Markdown bold. Put `Choose skill mode. Reply with 1, 2, or 3.` after the three options, not before them.
+For `Recommended`, include `brainstorming` when the task needs strategy, context analysis, behavior changes, feature changes, prompt/context improvement, report framing, or deciding how to shape the work before execution. `Recommended` should usually include common support skills that materially improve output quality, not only the strictest domain skills.
+
+Keep blank lines only between options 1, 2, and 3. Do not add blank lines between an option title, `Using:`, and `For:`. Do not use Markdown bold or all-caps labels in the mode menu because terminal transcripts may not render styling. Put `Choose skill mode. Reply with 1, 2, or 3.` after the three options, not before them.
 
 ### All related
 
@@ -118,7 +117,7 @@ Choose again when:
 When used, begin with:
 
 - `Mode: All related | Recommended | Restricted`
-- `Using: $use-skills, $<selected-skill>, $<selected-skill>`
+- `Using: use-skills, <selected skill>, <selected skill>`
 - `For: <purposes>`
 
 Keep the block brief and continue directly into the work.
