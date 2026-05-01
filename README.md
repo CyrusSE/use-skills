@@ -92,6 +92,8 @@ It should not ask again if the task and expected output have not materially chan
 
 Terminal note: the mode menu uses plain indented text because some agent CLIs do not visually render Markdown styling inside progress transcripts.
 
+Spacing rule: there must be one empty line between option blocks. If `2. Recommended` appears directly below option 1's `For:` line, the menu is formatted wrong.
+
 ### All related
 
 Uses every available skill that is meaningfully related to the request.

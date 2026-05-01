@@ -84,7 +84,18 @@ For `All related`, be aggressive. Include every candidate with a meaningful prim
 
 For `Recommended`, include `brainstorming` when the task needs strategy, context analysis, behavior changes, feature changes, prompt/context improvement, report framing, or deciding how to shape the work before execution. `Recommended` should usually include common support skills that materially improve output quality, not only the strictest domain skills.
 
-Keep blank lines only between options 1, 2, and 3. Do not add blank lines between an option title, `Using:`, and `For:`. Do not use Markdown bold or all-caps labels in the mode menu because terminal transcripts may not render styling. Put `Choose skill mode. Reply with 1, 2, or 3.` after the three options, not before them.
+The mode menu must be a standalone plain-text block, not a Markdown bullet, not a paragraph, and not nested under another list item.
+
+Spacing is mandatory:
+
+- Insert one completely empty line after option 1's `For:` line before option 2.
+- Insert one completely empty line after option 2's `For:` line before option 3.
+- Insert one completely empty line after option 3's `For:` line before `Choose skill mode. Reply with 1, 2, or 3.`
+- Do not add blank lines inside an option between the option title, `Using:`, and `For:`.
+
+If `2. Recommended` appears directly under option 1's `For:` line, or `3. Restricted` appears directly under option 2's `For:` line, the menu is incorrectly formatted and must be rewritten with separator lines.
+
+Do not use Markdown bold or all-caps labels in the mode menu because terminal transcripts may not render styling. Put `Choose skill mode. Reply with 1, 2, or 3.` after the three options, not before them.
 
 ### All related
 

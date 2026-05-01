@@ -10,7 +10,7 @@ Keep `use-skills` small, readable, and focused on skill selection.
 - Update examples when behavior changes.
 - Preserve the three modes: `All related`, `Recommended`, and `Restricted`.
 - Preserve mode choice behavior: when `$use-skills` is invoked and no reusable prior mode exists, ask the user to choose with a numbered `1`, `2`, `3` menu before any exploration or skill selection.
-- Preserve mode menu formatting: plain indented text, blank lines only between options, bare skill names, and the reply instruction after the options.
+- Preserve mode menu formatting: standalone plain text, one required empty line between option blocks, bare skill names, and the reply instruction after the options.
 - Prefer clear wording over dense rule language.
 
 ## Good Contributions
