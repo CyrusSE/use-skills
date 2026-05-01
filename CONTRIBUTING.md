@@ -6,7 +6,7 @@ Keep `use-skills` small, readable, and focused on skill selection.
 
 - Keep examples realistic.
 - Keep the working set small.
-- Keep `README.md`, `REFERENCE.md`, and `SKILL.md` aligned.
+- Keep `README.md`, `REFERENCE.md`, and `skills/use-skills/SKILL.md` aligned.
 - Update examples when behavior changes.
 - Preserve the three modes: `All related`, `Recommended`, and `Restricted`.
 - Preserve mode choice behavior: when `$use-skills` is invoked and no reusable prior mode exists, ask the user to choose with a numbered `1`, `2`, `3` menu before any exploration or skill selection.
@@ -36,7 +36,7 @@ Keep `use-skills` small, readable, and focused on skill selection.
 ## Review Checklist
 
 - The change improves output quality.
-- The docs still match `SKILL.md`.
+- The docs still match `skills/use-skills/SKILL.md`.
 - The wording stays concise.
 - The examples match the current behavior.
 - The mode menu remains clear enough to choose by replying with `1`, `2`, or `3`.

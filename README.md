@@ -39,11 +39,13 @@ npx skills add https://github.com/CyrusSE/use-skills --global
 
 ## Registry Compatibility
 
-The canonical runtime skill file is [SKILL.md](./SKILL.md).
+The canonical runtime skill file is [skills/use-skills/SKILL.md](./skills/use-skills/SKILL.md).
 
-A mirrored copy also lives at [skills/use-skills/SKILL.md](./skills/use-skills/SKILL.md) for registries that require a root `skills/` directory, such as `skills.re`.
+This root `skills/` layout works with registries that expect repository-scoped skill folders, such as `skills.re`, while still keeping the normal GitHub install flow working:
 
-This keeps the current GitHub install flow working while making the repo easier to index across more skill directories.
+```bash
+npx skills add https://github.com/CyrusSE/use-skills --global
+```
 
 ## Basic Use
 
@@ -160,7 +162,7 @@ The user gets a clear choice:
 ## Documentation Map
 
 - `agents/openai.yaml`: UI metadata for discovery surfaces that read skill interface fields
-- [SKILL.md](./SKILL.md): runtime behavior
+- [skills/use-skills/SKILL.md](./skills/use-skills/SKILL.md): runtime behavior
 - [REFERENCE.md](./REFERENCE.md): selection model
 - [examples/prompts.md](./examples/prompts.md): example prompts
 
@@ -181,5 +183,4 @@ use-skills/
 ├── LICENSE
 ├── README.md
 ├── REFERENCE.md
-└── SKILL.md
 ```
