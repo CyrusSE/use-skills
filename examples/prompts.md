@@ -71,3 +71,11 @@ $use-skills
 ```
 
 Expected behavior: if no previous mode applies, ask `Choose skill mode: All related, Recommended, or Restricted?`
+
+## Ambiguous Mode
+
+```text
+Patch this bug report with the most relevant skill guidance driving the fix. $use-skills
+```
+
+Expected behavior: ask `Choose skill mode: All related, Recommended, or Restricted?` before reading files or selecting skills, because `most relevant` is not an explicit mode.

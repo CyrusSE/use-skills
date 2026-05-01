@@ -30,13 +30,15 @@ The skill can also be selected automatically when the request is clearly multi-d
 
 ## Modes
 
-When no previous mode applies, the skill asks:
+When no previous mode applies, the skill asks before doing anything else:
 
 ```text
 Choose skill mode: All related, Recommended, or Restricted?
 ```
 
-It should not ask again if the task and expected output have not materially changed.
+It should not inspect files, search the workspace, select skills, or infer a mode before asking.
+
+It should not ask again if the task and expected output have not materially changed. Words like `best`, `most relevant`, and `strongest` do not count as explicit mode choices.
 
 ### All related
 

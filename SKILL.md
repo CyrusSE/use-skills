@@ -23,6 +23,7 @@ Skip this skill when one domain skill is clearly enough.
 
 ## Selection Process
 
+0. Resolve the skill mode using the hard gate below.
 1. Review the visible skill list.
 2. Compare each skill with the user request and expected output.
 3. Pick the strongest matches as the working set.
@@ -44,7 +45,7 @@ If no skill is a strong fit, leave this skill unused.
 
 ## Modes
 
-Ask the user to choose one mode before the main response when there is no reusable prior choice:
+Ask the user to choose one mode before any workspace exploration, tool calls, file reads, skill selection, or main response when there is no reusable prior choice:
 
 - `All related`: use every available skill that is meaningfully related to the request
 - `Recommended`: use the best balanced working set for the request
@@ -54,7 +55,17 @@ Ask with this compact format:
 
 `Choose skill mode: All related, Recommended, or Restricted?`
 
-Do not choose silently unless the user already specified a mode or a previous mode still applies. Reuse the previous mode when the task and expected output are materially the same. Ask again when the task, expected output, or selected skill set changes.
+## Mode Choice Hard Gate
+
+If `$use-skills` is invoked and the prompt does not explicitly name `All related`, `Recommended`, or `Restricted`, the next assistant response must be only:
+
+`Choose skill mode: All related, Recommended, or Restricted?`
+
+Do not inspect files, search the workspace, list skills, select a working set, or infer a mode before asking.
+
+Phrases like `best`, `most relevant`, `strongest`, `helpful`, or `best combination` do not count as explicit mode choices.
+
+Do not choose silently unless the user already specified one of the three modes or a previous mode still applies. Reuse the previous mode only when the task and expected output are materially the same. Ask again when the task, expected output, or selected skill set changes.
 
 ## Response Block
 
@@ -82,7 +93,7 @@ When selected skills point in different directions, prefer:
 - Avoid duplicate guidance.
 - Keep the opening block shorter than the answer it introduces.
 - Include a support skill in `Using:` only when it materially changes the result.
-- Ask for mode when no reusable prior mode exists.
+- Ask for mode before doing anything else when no reusable prior mode exists.
 - Do not ask again when the prior mode still fits the task and expected output.
 - Ask again when the task, expected output, or selected skill set has changed.
 

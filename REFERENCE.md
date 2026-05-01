@@ -44,7 +44,7 @@ Skipping is expected. The point is to choose well, not to use everything.
 
 ## Modes
 
-When there is no reusable prior mode, ask the user to choose:
+When there is no reusable prior mode, ask the user to choose before any workspace exploration, tool calls, file reads, or skill selection:
 
 ```text
 Choose skill mode: All related, Recommended, or Restricted?
@@ -55,6 +55,10 @@ Do not choose silently unless:
 - the user already specified a mode
 - the previous mode still applies to the current task and expected output
 - session context makes the same choice clearly reusable
+
+Phrases like `best`, `most relevant`, `strongest`, `helpful`, or `best combination` do not count as explicit mode choices.
+
+If `$use-skills` is invoked and no mode is explicit, the mode question must be the next assistant response.
 
 ### All related
 
